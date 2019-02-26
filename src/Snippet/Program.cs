@@ -2,18 +2,23 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 
 namespace Snippet {
     class Program {
         static Assembly asm = Assembly.GetEntryAssembly();
-        static string[] names = asm.GetManifestResourceNames();
+        static string[] names = asm.GetManifestResourceNames()
+            // .Where(x => !x.Contains(".obj."))
+            .ToArray();
 
         /// <summary>
         /// Snippets
         /// </summary>
-        /// <param name="list">An option whose argument is parsed as a FileInfo</param>
-        /// <param name="path">An option whose argument is parsed as a FileInfo</param>
-        static void Main(bool list, string path = "", string bat = "") {
+        /// <param name="list"></param>
+        /// <param name="path"></param>
+        /// <param name="query"></param>
+        /// <param name="bat"></param>
+        static void Main(bool list, string path = "", string bat = "", string query = "") {
 
             if (!string.IsNullOrEmpty(path)) {
                 PrintPath(path);
@@ -25,6 +30,11 @@ namespace Snippet {
                 return;
             }
 
+            if (!String.IsNullOrEmpty(query)) {
+                Query(query);
+                return;
+            }
+
             if (list) {
                 foreach (var item in names) {
                     var localPath = item;
@@ -33,6 +43,13 @@ namespace Snippet {
 
                     Console.WriteLine(localPath);
                 }
+            }
+        }
+
+        private static void Query(string query) {
+            var name = names.Where(x => x.Contains(query)).FirstOrDefault();
+            if (name != null) {
+                Bat(name);
             }
         }
 

@@ -1,6 +1,16 @@
 ## Snippet
 
+[![NuGet](https://img.shields.io/nuget/v/wk.Snippet.svg)](https://www.nuget.org/packages/wk.Snippet)
+
+## Installation
+
 ```bash
-dotnet run --project src/Snippet/Snippet.csproj  -- --path Snippet.Program.cs | bat -l cs
-wk-snippet --bat Snippet.obj.Debug.netcoreapp2._2.Snippet.AssemblyInfo.cs
+brew install bat
+dotnet tool install -g wk.Snippet
+```
+
+## Usage
+
+```
+wk-snippet --query Basic
 ```
