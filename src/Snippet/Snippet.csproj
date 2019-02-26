@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="../CSharp/*.*" />
-    <EmbeddedResource Include="../Cake/*.*" />
-    <EmbeddedResource Include="../MSBuild/*.*" />
+    <EmbeddedResource Include="../Assets/**/*" />
     <EmbeddedResource Include="*.csproj" />
     <EmbeddedResource Include="*.cs" />
   </ItemGroup>
