@@ -22,3 +22,4 @@ steps:
   displayName: 'Copy assets'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'

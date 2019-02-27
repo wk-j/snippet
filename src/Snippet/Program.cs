@@ -63,7 +63,7 @@ namespace Snippet {
             var language = GetLanguage(bat);
             var startInfo = new ProcessStartInfo {
                 FileName = "/bin/sh",
-                Arguments = $@" -c ""wk-snippet --path {bat} | bat -l {language}""",
+                Arguments = $@" -c ""wk-snippet --path {bat} | bat --decorations never -l {language}""",
                 UseShellExecute = false
             };
             new Process {
@@ -76,7 +76,11 @@ namespace Snippet {
             var stream = asm.GetManifestResourceStream(target);
             var reader = new StreamReader(stream);
             var text = reader.ReadToEnd();
+
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine(text);
+            Console.WriteLine();
         }
     }
 }
