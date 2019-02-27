@@ -7,9 +7,7 @@ using System.Linq;
 namespace Snippet {
     class Program {
         static Assembly asm = Assembly.GetEntryAssembly();
-        static string[] names = asm.GetManifestResourceNames()
-            // .Where(x => !x.Contains(".obj."))
-            .ToArray();
+        static string[] names = asm.GetManifestResourceNames();
 
         /// <summary>
         /// Snippets
@@ -21,7 +19,7 @@ namespace Snippet {
         static void Main(bool list, string path = "", string bat = "", string query = "") {
 
             if (!string.IsNullOrEmpty(path)) {
-                PrintPath(path);
+                Print(path);
                 return;
             }
 
@@ -37,13 +35,21 @@ namespace Snippet {
 
             if (list) {
                 foreach (var item in names) {
-                    var localPath = item;
-                    // .Replace("Snippet.obj.Debug.", "Snippet/obj/Debug/")
-                    // .Replace("Snippet.", "Snippet/");
-
-                    Console.WriteLine(localPath);
+                    Console.WriteLine(item);
                 }
             }
+        }
+
+        private static string GetLanguage(string path) {
+            if (path.EndsWith(".cs")) return "cs";
+            if (path.EndsWith(".csx")) return "cs";
+            if (path.EndsWith(".xml")) return "xml";
+            if (path.EndsWith(".targets")) return "xml";
+            if (path.EndsWith(".sql")) return "sql";
+            if (path.EndsWith(".yml")) return "yml";
+            if (path.EndsWith(".yaml")) return "yml";
+            if (path.EndsWith(".cake")) return "cs";
+            return "cs";
         }
 
         private static void Query(string query) {
@@ -54,28 +60,22 @@ namespace Snippet {
         }
 
         private static void Bat(string bat) {
-            var process = new Process();
-            var start = new ProcessStartInfo();
-
-            var extension = "cs";
-            if (bat.EndsWith("targets")) extension = "xml";
-
-            start.FileName = "/bin/sh";
-            start.Arguments = $@" -c ""wk-snippet --path {bat} | bat -l {extension}""";
-
-            start.UseShellExecute = false;
-
-            process.StartInfo = start;
-            process.Start();
+            var language = GetLanguage(bat);
+            var startInfo = new ProcessStartInfo {
+                FileName = "/bin/sh",
+                Arguments = $@" -c ""wk-snippet --path {bat} | bat -l {language}""",
+                UseShellExecute = false
+            };
+            new Process {
+                StartInfo = startInfo
+            }.Start();
         }
 
-        static void PrintPath(string path) {
+        static void Print(string path) {
             var target = path.Replace(" / ", ".");
             var stream = asm.GetManifestResourceStream(target);
             var reader = new StreamReader(stream);
             var text = reader.ReadToEnd();
-
-
             Console.WriteLine(text);
         }
     }
