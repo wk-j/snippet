@@ -15,10 +15,13 @@ steps:
 - script: dotnet tool install -g Cake.Tool
   displayName: "Install Cake"
 
-- script: ~/.dotnet/tools/dotnet-cake -target=Publish
+- script: ~/.dotnet/tools/dotnet-cake -target=Pack
   displayName: 'Build with Cake'
 
-# - script: dotnet pack src/Snippet/Snippet.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) --output $(Build.ArtifactStagingDirectory)
+- script: cp .publish/*.nupkg $(Build.ArtifactStagingDirectory)
+  displayName: 'Copy assets'
+
+#- script: dotnet pack src/Snippet/Snippet.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) --output $(Build.ArtifactStagingDirectory)
 #  displayName: 'Pack NuGet'
 
 - task: PublishBuildArtifacts@1
