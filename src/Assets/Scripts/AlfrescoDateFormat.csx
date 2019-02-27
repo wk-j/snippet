@@ -1,0 +1,1 @@
+var alfrescoDateFormat = "yyyy-MM-ddTHH:mm:ss.fffzzz";
