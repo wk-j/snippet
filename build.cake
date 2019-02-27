@@ -10,7 +10,7 @@ var name = "Snippet";
 var currentDir = new DirectoryInfo(".").FullName;
 var info = Parser.Parse($"src/{name}/{name}.csproj");
 var publishDir = ".publish";
-var version = DateTime.Now.ToString("yy.MM.dd.mmss");
+var version = DateTime.Now.ToString("yy.MM.dd.HHmmss");
 
 Task("Pack").Does(() => {
     CleanDirectory(publishDir);
