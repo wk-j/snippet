@@ -8,11 +8,17 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  version: '0.2.$(Build.BuildNumber)'
+  version: '0.2.1'
 
 steps:
 
-- script: dotnet pack src/Snippet/Snippet.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) --output $(Build.ArtifactStagingDirectory)
-  displayName: 'Pack NuGet'
+- script: dotnet tool install -g Cake.Tool
+  displayName: "Install Cake"
+
+- script: dotnet cake -target=Publish
+  displayName: 'Build with Cake'
+
+# - script: dotnet pack src/Snippet/Snippet.csproj --configuration $(buildConfiguration) /p:PackageVersion=$(version) --output $(Build.ArtifactStagingDirectory)
+#  displayName: 'Pack NuGet'
 
 - task: PublishBuildArtifacts@1
