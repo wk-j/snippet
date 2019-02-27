@@ -10,8 +10,15 @@ brew install bat
 dotnet tool install -g wk.Snippet
 ```
 
+## Update
+
+```bash
+dotnet tool update  -g wk.Snippet
+```
+
 ## Usage
 
-```
+```bash
+wk-snippet --list
 wk-snippet --query Basic
 ```
