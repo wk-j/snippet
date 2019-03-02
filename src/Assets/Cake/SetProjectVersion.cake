@@ -1,6 +1,6 @@
 var project =  "../Snippet/Snippet.csproj";
 var publishDir = "../../.publish";
-var version = DateTime.Now.ToString("yy.MM.dd.mmss")
+var version = DateTime.Now.ToString("yy.MM.dd.HHss")
 
 Task("Pack").Does(() => {
     var settings = new DotNetCoreMSBuildSettings();
