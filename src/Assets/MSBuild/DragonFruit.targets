@@ -1,0 +1,5 @@
+ <Project>
+     <ItemGroup>
+            <PackageReference Include="System.CommandLine.DragonFruit" Version="0.1.0-alpha-63724-02" />
+    </ItemGroup>
+</Project>
