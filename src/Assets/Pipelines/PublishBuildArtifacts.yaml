@@ -1,3 +1,18 @@
+pool:
+  vmImage: 'vs2017-win2016'
+
+variables:
+  buildConfiguration: 'Release'
+  version: '0.2.1'
+  repository: "wk-j/azure-release"
+
+steps:
+
+- task: DotNetCoreInstaller@0
+  inputs:
+    packageType: 'sdk'
+    version: '3.0.100-preview3-010431
+
 - script: '%UserProfile%/.dotnet/tools/dotnet-cake -target=Build-Package'
   displayName: 'Build with Cake'
 
