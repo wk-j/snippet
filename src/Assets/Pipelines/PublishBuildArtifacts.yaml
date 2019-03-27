@@ -1,0 +1,7 @@
+- script: '%UserProfile%/.dotnet/tools/dotnet-cake -target=Build-Package'
+  displayName: 'Build with Cake'
+
+- script: 'cp .deploy/*.zip $(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy to staging directory'
+
+- task: PublishBuildArtifacts@1
