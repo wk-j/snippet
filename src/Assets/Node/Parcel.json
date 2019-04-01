@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "parcel-start": "node node_modules/parcel-bundler/bin/cli.js web/index.html -d src/KFrontend/wwwroot --public-url /",
+        "parcel-watch": "node node_modules/parcel-bundler/bin/cli.js watch web/index.html -d src/ElectronNet/wwwroot --public-url /",
+        "parcel-build": "node node_modules/parcel-bundler/bin/cli.js build web/index.html -d src/ElectronNet/wwwroot --public-url /"
+    }
+}
