@@ -1,0 +1,57 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+    - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    steps:
+    - checkout
+    - restore_cache:
+        key: nuget-{{ checksum  "src/Circle/Circle.csproj" }}
+    - run:
+        name: Restore pacakges
+        command: dotnet restore src/Circle
+    - run:
+        name: Install cake
+        command: dotnet tool install -g cake.tool
+    - run:
+        name: Build app
+        command: |
+          ~/.dotnet/tools/dotnet-cake -target=Zip
+    - save_cache:
+        paths:
+        - ~/.nuget/packages
+        key: nuget-{{ checksum  "src/Circle/Circle.csproj" }}
+    - store_artifacts:
+        path: .publish/Z
+    - persist_to_workspace:
+        root: .publish
+        paths:
+        - Z
+  publish-github-release:
+    docker:
+    - image: cibuilds/github:0.10
+    steps:
+    - attach_workspace:
+        at: /tmp
+    - run:
+        name: Publish release on GitHub
+        command: |
+          VERSION="v-$(date +%s)"
+          ls /tmp/Z
+          ghr \
+            -t ${GITHUB_TOKEN} \
+            -u ${CIRCLE_PROJECT_USERNAME} \
+            -r ${CIRCLE_PROJECT_REPONAME} \
+            -c ${CIRCLE_SHA1} \
+            -delete \
+            -recreate  \
+            ${VERSION}  \
+            /tmp/Z
+workflows:
+  version: 2
+  main:
+    jobs:
+    - build
+    - publish-github-release:
+        requires:
+        - build
