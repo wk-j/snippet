@@ -10,5 +10,5 @@ RUN dotnet publish src/MyWeb -c Release -o /app -r linux-x64
 FROM mcr.microsoft.com/dotnet/core-nightly/runtime:3.1 AS runtime
 WORKDIR /app
 COPY --from=publish /app .
-CMD dotnet CaatBackend.dll
+CMD dotnet Connect31.dll
 EXPOSE 80
