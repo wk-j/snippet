@@ -55,8 +55,13 @@ namespace Snippet {
         private static void Query(string query) {
             var name = names.Where(x => x.Contains(query)).FirstOrDefault();
             if (name != null) {
-                Bat(name);
+                // Bat(name);
+                Cat(name);
             }
+        }
+
+        private static void Cat(string file) {
+            Print(file);
         }
 
         private static void Bat(string bat) {

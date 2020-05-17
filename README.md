@@ -6,7 +6,7 @@
 ## Installation
 
 ```bash
-brew install bat
+# brew install bat
 dotnet tool install -g wk.Snippet
 ```
 
