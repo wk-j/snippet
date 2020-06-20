@@ -32,7 +32,7 @@ jobs:
           dotnet publish src/MyWeb  -o __publish__/MyWeb -r win-x64
           (cd __publish__; zip -r MyWeb.zip MyWeb)
 
-      - name: Upload Caat
+      - name: Upload 1
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
