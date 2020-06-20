@@ -6,37 +6,37 @@ on:
       - "*"
 
 jobs:
-  build-client:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.100
+          dotnet-version: 3.1.201
 
       - name: Get the version
         id: get-version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
 
-      - name: Build client
-        run: |
-          npm --prefix src/Client install
-          npm --prefix src/Client run publish
+      # - name: Build client
+      #   run: |
+      #     npm --prefix src/Client install
+      #     npm --prefix src/Client run publish
 
       - name: Build backend
         run: |
-          echo "{}" > src/CaatBackend/appsettings.json
-          dotnet publish src/CaatBackend -o .publish/Caat -r win-x64
-          (cd .publish; zip -r Caat.zip Caat)
+          dotnet publish src/MyWeb  -o __publish__/MyWeb -r win-x64
+          (cd __publish__; zip -r MyWeb.zip MyWeb)
 
       - name: Upload Caat
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: .publish/Caat.zip
-          asset_name: Caat.${{ steps.get-version.outputs.VERSION }}.zip
+          file: __publish__/MyWeb.zip
+          asset_name: MyWeb.${{ steps.get-version.outputs.VERSION }}.zip
           tag: ${{ github.ref }}
           overwrite: true
