@@ -1,0 +1,3 @@
+http --form POST http://localhost:5000/odata/discount/addDetail \
+    a.pdf@./README.md \
+    type=ภาษาไทย \

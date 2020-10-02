@@ -22,11 +22,6 @@ jobs:
         id: get-version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
 
-      # - name: Build client
-      #   run: |
-      #     npm --prefix src/Client install
-      #     npm --prefix src/Client run publish
-
       - name: Build backend
         run: |
           dotnet publish src/MyWeb  -o __publish__/MyWeb -r win-x64

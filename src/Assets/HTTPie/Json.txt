@@ -1,0 +1,2 @@
+echo '{ "processId": "p1234", "amount": 100000 }' \
+    | http POST http://localhost:5000/odata/discount/addDiscount
