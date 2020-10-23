@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:5.0-alpine as build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine as build
 WORKDIR /app
 
 COPY src/MyWeb/*.csproj src/MyWeb/MyWeb.csproj
@@ -7,7 +7,7 @@ RUN  dotnet restore src/MyWeb
 COPY src/MyWeb src/MyWeb
 RUN dotnet publish src/MyWeb -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:5.0-alpine as runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine as runtime
 WORKDIR /app
 COPY --from=build /app/out ./
 
