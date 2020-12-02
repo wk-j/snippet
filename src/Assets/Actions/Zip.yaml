@@ -5,6 +5,9 @@ on:
     tags:
       - "*"
 
+env:
+  PROJECT: MyWeb
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +19,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.201
+          dotnet-version: 5.0.100
 
       - name: Get the version
         id: get-version
@@ -24,14 +27,14 @@ jobs:
 
       - name: Build backend
         run: |
-          dotnet publish src/MyWeb  -o __publish__/MyWeb -r win-x64
-          (cd __publish__; zip -r MyWeb.zip MyWeb)
+          dotnet publish src/$PROJECT -o __publish__/$PROJECT -r win-x64
+          (cd __publish__; zip -r $PROJECT.zip $PROJECT)
 
       - name: Upload 1
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: __publish__/MyWeb.zip
-          asset_name: MyWeb.${{ steps.get-version.outputs.VERSION }}.zip
+          file: __publish__/${{ env.PROJECT }}.zip
+          asset_name: ${{ env.PROJECT }}.${{ steps.get-version.outputs.VERSION }}.zip
           tag: ${{ github.ref }}
           overwrite: true

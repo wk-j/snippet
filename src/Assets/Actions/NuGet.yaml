@@ -5,6 +5,9 @@ on:
     tags:
       - "*"
 
+env:
+  PROJECT: MyWeb
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.201
+          dotnet-version: 5.0.100
 
       - name: Get the version
         id: get-version
@@ -22,10 +25,10 @@ jobs:
 
       - name: Build
         run: |
-          dotnet pack src/MyApp --output __publish__/X /p:Version=${{ steps.get-version.outputs.VERSION }}
+          dotnet pack src/$PROJECT --output __publish__/X /p:Version=${{ steps.get-version.outputs.VERSION }}
 
       - name: Push
         run: |
-          dotnet nuget push __publish__/X/wk.MyApp.${{ steps.get-version.outputs.VERSION }}.nupkg \
+          dotnet nuget push __publish__/X/wk.${{env.PROJECT}}.${{ steps.get-version.outputs.VERSION }}.nupkg \
             -s https://api.nuget.org/v3/index.json \
             -k ${{ secrets.NUGET_TOKEN }}

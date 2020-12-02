@@ -7,6 +7,7 @@
         <ToolCommandName>wk-snippet</ToolCommandName>
         <PackageId>wk.Snippet</PackageId>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RollForward>Major</RollForward>
     </PropertyGroup>
 
     <ItemGroup>
