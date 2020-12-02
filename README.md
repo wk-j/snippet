@@ -6,14 +6,13 @@
 ## Installation
 
 ```bash
-# brew install bat
 dotnet tool install -g wk.Snippet
 ```
 
 ## Update
 
 ```bash
-dotnet tool update  -g wk.Snippet
+dotnet tool update -g wk.Snippet
 ```
 
 ## Usage

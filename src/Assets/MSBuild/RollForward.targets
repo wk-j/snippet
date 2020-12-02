@@ -1,0 +1,5 @@
+<Project>
+    <PropertyGroup>
+        <TargetLatestRuntimePatch>2</TargetLatestRuntimePatch>
+    </PropertyGroup>
+</Project>
