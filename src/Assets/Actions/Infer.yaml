@@ -1,0 +1,39 @@
+name: Infer
+
+on:
+  push:
+    tags:
+      - "*"
+
+env:
+  PROJECT: MyWeb
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.100
+
+      - name: Get the version
+        id: get-version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
+      - name: Build backend
+        run: |
+          dotnet build src/$PROJECT  -o __publish__/$PROJECT
+
+      - name: Run Infor#
+        uses: microsoft/infersharpaction@v0.2
+        id: runinfersharp
+        with:
+          binary-path: __publish__/${{ env.PROJECT }}
+
+      - name: Infer# analysis result
+        run: echo "${{ steps.runinfersharp.outputs.results }}"
