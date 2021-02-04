@@ -30,6 +30,14 @@ jobs:
           dotnet publish src/$PROJECT -o __publish__/$PROJECT -r win-x64
           (cd __publish__; zip -r $PROJECT.zip $PROJECT)
 
+        env:
+          DOTNET_CLI_TELEMETRY_OPTOUT: 1
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+          DOTNET_NOLOGO: true
+          DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+          DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
+          DOTNET_MULTILEVEL_LOOKUP: 0
+
       - name: Upload 1
         uses: svenstaro/upload-release-action@v1-release
         with:
