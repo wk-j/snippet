@@ -8,4 +8,4 @@ else
     VERSION=$1
 fi
 
-docker build -f docker/Gateway.Dockerfile -t reg.bcecm.com/pttor/gateway-service:$VERSION .
+docker build -f docker/Dockerfile -t reg.xyz.com/project/image-name:$VERSION .
